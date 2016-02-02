@@ -7,12 +7,13 @@ class ExtractJsonTranslationFromXML
      * Extracts relevant translations from translation XML
      *
      * @param SimpleXML $xml Translation in XML format
+     * @param string $attr Name of the attribute indicating it's relevance
      *
      * @return string
      */
-    public static function extractJsonFromXML($xml)
+    public static function extractJsonFromXML($xml, $attr)
     {
-        $entriesWithJsonAttr = $xml->xpath("//trans-unit[@json]");
+        $entriesWithJsonAttr = $xml->xpath("//trans-unit[@" . $attr . "]");
 
         $jsonString = "{\n";
         foreach ($entriesWithJsonAttr as $entry => $data) {
@@ -21,7 +22,7 @@ class ExtractJsonTranslationFromXML
             }
             $attributes = $data->attributes();
 
-            $jsonId = $attributes['json'];
+            $jsonId = $attributes[$attr];
             $source = $data->xpath('source');
             $target = $data->xpath('target');
 
