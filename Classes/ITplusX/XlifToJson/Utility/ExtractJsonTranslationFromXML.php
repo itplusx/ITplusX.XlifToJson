@@ -15,22 +15,17 @@ class ExtractJsonTranslationFromXML
     {
         $entriesWithJsonAttr = $xml->xpath("//trans-unit[@" . $attr . "]");
 
-        $jsonString = "{\n";
+        $json = [];
         foreach ($entriesWithJsonAttr as $entry => $data) {
-            if ($entry != 0) {
-                $jsonString .= ",\n";
-            }
             $attributes = $data->attributes();
 
             $jsonId = $attributes[$attr];
             $source = $data->xpath('source');
             $target = $data->xpath('target');
 
-            $jsonString .= '    "' . $jsonId . '": "' . (count($target) == 1 ? $target{0} : $source{0}) . '"';
+            $json[(string)$jsonId] = count($target) == 1 ? (string)$target{0} : (string)$source{0};
         }
 
-        $jsonString .= "\n}";
-
-        return $jsonString;
+        return json_encode($json);
     }
 }
