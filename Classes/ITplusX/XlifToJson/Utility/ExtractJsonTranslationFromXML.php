@@ -6,7 +6,7 @@ class ExtractJsonTranslationFromXML
     /**
      * Extracts relevant translations from translation XML
      *
-     * @param SimpleXML $xml Translation as XML format
+     * @param SimpleXML $xml Translation in XML format
      *
      * @return string
      */
