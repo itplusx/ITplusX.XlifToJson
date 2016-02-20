@@ -28,6 +28,11 @@ class XlifToJsonCommandController extends \TYPO3\Flow\Cli\CommandController
         $xlif = file_get_contents($pathToInputXlf);
         $jsonTranslation = ExtractJsonTranslationFromXML::extractJsonFromXML(XlifToXML::encodeToXML($xlif), $attribute);
 
+        $this->outputLine('');
+        $this->outputLine('Extracting translations from XLIF to JSON:');
+        $this->outputLine('Input file: ' . $pathToInputXlf);
+        $this->outputLine('Output file: ' . $pathToOutputJson);
+
         file_put_contents($pathToOutputJson, $jsonTranslation);
     }
 }
